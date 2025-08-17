@@ -1,9 +1,9 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "21.1.0"  # module version
+  version = "21.1.0"
 
-  name             = "my-eks-cluster"
-  cluster_version  = "1.28"  # correct way to set cluster Kubernetes version
+  name            = "my-eks-cluster"
+  cluster_version = "1.28"
 
   vpc_config = {
     subnet_ids             = module.vpc.private_subnets
