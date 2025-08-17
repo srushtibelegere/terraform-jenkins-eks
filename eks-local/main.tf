@@ -31,9 +31,9 @@ module "vpc" {
 
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
-
-  name    = "my-eks-cluster"
-  version = "1.28"
+  version = "21.1.0"
+  cluster_name    = "my-eks-cluster"
+  cluster_version = "1.28"
 
   endpoint_public_access = true
 
