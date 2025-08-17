@@ -26,27 +26,26 @@ module "vpc" {
     "kubernetes.io/cluster/my-eks-cluster" = "shared"
     "kubernetes.io/role/internal-elb"      = 1
   }
-
 }
 
 module "eks" {
-  source = "terraform-aws-modules/eks/aws"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "21.1.0"   # Pin the module version
 
-  cluster_name    = "my-eks-cluster"
-  cluster_version = "1.28"
+  name    = "my-eks-cluster"  # was cluster_name
+  version = "1.28"            # was cluster_version
 
-  cluster_endpoint_public_access = true
+  vpc_config = {
+    subnet_ids             = module.vpc.private_subnets
+    endpoint_public_access = true
+  }
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
-
-  eks_managed_node_groups = {
+  managed_node_groups = {
     nodes = {
-      min_size     = 1
-      max_size     = 3
-      desired_size = 2
-
-      instance_type = ["t2.small"]
+      desired_capacity = 2
+      min_capacity     = 1
+      max_capacity     = 3
+      instance_type    = "t2.small"
     }
   }
 
