@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "21.1.0"
 
-  name            = "my-eks-cluster"
+  cluster_name    = "my-eks-cluster"
   cluster_version = "1.28"
 
   vpc_config = {
